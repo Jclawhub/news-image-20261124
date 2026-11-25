@@ -250,14 +250,19 @@ type Icon = (cv: Canvas, x: number, y: number, s: number, c: RGB) => void;
 const iconSatellite: Icon = (cv, x, y, s, c) => {
   const cx = x + s / 2;
   const cy = y + s / 2;
-  cv.box(cx - 26, cy - 10, 52, 20, c); // body
-  cv.box(cx - 12, cy - 16, 24, 6, GOLD); // panel top
-  cv.box(cx - 12, cy + 10, 24, 6, GOLD); // panel bottom
-  cv.seg(cx - 26, cy - 10, cx - 44, cy - 26, c, 3); // antenna
-  cv.dot(cx - 46, cy - 28, 4, c);
-  cv.seg(cx + 26, cy + 10, cx + 44, cy + 26, c, 3);
-  cv.dot(cx + 46, cy + 28, 4, c);
+  // Solar panels: two wide rectangles flanking the body.
+  cv.box(cx - 62, cy - 14, 34, 28, GOLD);
+  cv.box(cx + 28, cy - 14, 34, 28, GOLD);
+  cv.box(cx - 62, cy - 14, 34, 4, c);
+  cv.box(cx + 28, cy - 14, 34, 4, c);
+  // Body: a compact bus with a dish on top.
+  cv.box(cx - 28, cy - 12, 56, 24, c);
+  cv.box(cx - 10, cy - 26, 20, 14, c);
   cv.dot(cx, cy, 5, PAPER);
+  // Antenna and signal arcs.
+  cv.seg(cx, cy - 26, cx, cy - 40, c, 3);
+  cv.dot(cx, cy - 42, 3, c);
+  cv.ring(cx, cy - 42, 10, c, 2);
 };
 
 const iconGavel: Icon = (cv, x, y, s, c) => {
@@ -346,7 +351,7 @@ const STORIES: Story[] = [
   {
     kicker: 'FRANCE',
     headline: 'SARKOZY AND BRUNI TO STAND TRIAL',
-    body: 'EX-PRESIDENT AND WIFE FACE TRIAL IN 2027 OVER WITNESS TAMPERING.',
+    body: 'EX-PRESIDENT AND WIFE FACE TRIAL IN 2027.',
     color: RUST,
     icon: iconGavel,
   },
